@@ -1,473 +1,910 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Abdelrahman Abushamaleh — AI / ML Engineer</title>
-  <meta name="description" content="AI / Machine Learning Engineer portfolio — Computer Vision, Deep Learning, Data-Driven Systems." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Abdelrahman Abushamaleh — AI / Machine Learning Engineer Portfolio"/>
+  <title>Abdelrahman Abushamaleh | AI / ML Engineer</title>
 
-  <!-- Optional font (lightweight) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #fbfbff;
+      --card: rgba(255,255,255,.85);
+      --text: #0b1020;
+      --muted: rgba(11,16,32,.65);
+      --border: rgba(120, 120, 140, .18);
 
-  <link rel="stylesheet" href="./styles.css" />
+      --accent1: #5b7cfa;   /* blue */
+      --accent2: #8b5cf6;   /* purple */
+      --accent3: #22c55e;   /* subtle green for status dots */
+      --shadow: 0 18px 40px rgba(20, 30, 60, .10);
+
+      --radius: 18px;
+      --max: 1100px;
+    }
+
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(1200px 700px at 20% -10%, rgba(91,124,250,.14), transparent 55%),
+                  radial-gradient(900px 600px at 90% 10%, rgba(139,92,246,.12), transparent 55%),
+                  radial-gradient(700px 500px at 50% 110%, rgba(91,124,250,.10), transparent 50%),
+                  var(--bg);
+      overflow-x:hidden;
+    }
+
+    /* Subtle AI grid / network overlay */
+    .ai-pattern{
+      position:absolute;
+      inset:-2px;
+      pointer-events:none;
+      opacity:.85;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800' viewBox='0 0 1200 800'%3E%3Cdefs%3E%3CradialGradient id='g' cx='0.5' cy='0.4' r='0.8'%3E%3Cstop offset='0' stop-color='%238b5cf6' stop-opacity='.16'/%3E%3Cstop offset='0.5' stop-color='%235b7cfa' stop-opacity='.10'/%3E%3Cstop offset='1' stop-color='%235b7cfa' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='1200' height='800' fill='url(%23g)'/%3E%3Cg stroke='%230b1020' stroke-opacity='.08'%3E%3Cpath d='M60 110H1140'/%3E%3Cpath d='M60 220H1140'/%3E%3Cpath d='M60 330H1140'/%3E%3Cpath d='M60 440H1140'/%3E%3Cpath d='M60 550H1140'/%3E%3Cpath d='M60 660H1140'/%3E%3Cpath d='M120 60V740'/%3E%3Cpath d='M260 60V740'/%3E%3Cpath d='M400 60V740'/%3E%3Cpath d='M540 60V740'/%3E%3Cpath d='M680 60V740'/%3E%3Cpath d='M820 60V740'/%3E%3Cpath d='M960 60V740'/%3E%3Cpath d='M1080 60V740'/%3E%3C/g%3E%3Cg fill='none' stroke='%235b7cfa' stroke-opacity='.20'%3E%3Cpath d='M240 190 C320 120, 430 160, 520 120 S730 140, 860 110'/%3E%3Cpath d='M300 560 C420 520, 520 610, 640 560 S820 520, 940 570'/%3E%3C/g%3E%3Cg%3E%3Cg fill='%235b7cfa' fill-opacity='.25'%3E%3Ccircle cx='240' cy='190' r='4'/%3E%3Ccircle cx='520' cy='120' r='4'/%3E%3Ccircle cx='860' cy='110' r='4'/%3E%3Ccircle cx='300' cy='560' r='4'/%3E%3Ccircle cx='640' cy='560' r='4'/%3E%3Ccircle cx='940' cy='570' r='4'/%3E%3C/g%3E%3Cg stroke='%238b5cf6' stroke-opacity='.22'%3E%3Cline x1='240' y1='190' x2='520' y2='120'/%3E%3Cline x1='520' y1='120' x2='860' y2='110'/%3E%3Cline x1='300' y1='560' x2='640' y2='560'/%3E%3Cline x1='640' y1='560' x2='940' y2='570'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      background-size: cover;
+      filter: saturate(1.08);
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift{
+      0%{ transform: translate3d(0,0,0) scale(1.02); }
+      100%{ transform: translate3d(-14px, 10px, 0) scale(1.02); }
+    }
+
+    /* Layout */
+    .page{
+      position:relative;
+      min-height:100%;
+    }
+
+    .container{
+      width:min(var(--max), calc(100% - 40px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(to bottom, rgba(251,251,255,.85), rgba(251,251,255,.60));
+      border-bottom: 1px solid rgba(120,120,140,.10);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+
+    .brand-badge{
+      width:34px; height:34px;
+      border-radius:12px;
+      display:grid; place-items:center;
+      border: 1px solid rgba(91,124,250,.25);
+      background: radial-gradient(circle at 30% 30%, rgba(91,124,250,.20), transparent 65%),
+                  radial-gradient(circle at 70% 70%, rgba(139,92,246,.20), transparent 65%),
+                  rgba(255,255,255,.65);
+      box-shadow: 0 10px 20px rgba(20,30,60,.08);
+      transition: transform .2s ease;
+    }
+    .brand:hover .brand-badge{ transform: translateY(-1px); }
+
+    nav a{
+      color: var(--muted);
+      text-decoration:none;
+      font-weight:600;
+      font-size:14px;
+      padding:10px 10px;
+      border-radius:12px;
+      transition: background .2s ease, color .2s ease;
+    }
+    nav a:hover{
+      color: var(--text);
+      background: rgba(91,124,250,.08);
+    }
+
+    .nav-right{
+      display:flex; gap:6px; align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    /* Sections */
+    section{ padding: 72px 0; }
+    .hero{
+      padding: 62px 0 40px;
+    }
+
+    .grid{
+      display:grid;
+      gap:16px;
+    }
+
+    .hero-wrap{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 28px;
+      align-items:center;
+    }
+
+    @media (max-width: 900px){
+      .hero-wrap{ grid-template-columns: 1fr; }
+      section{ padding: 62px 0; }
+    }
+
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,.65);
+      font-weight:700;
+      color: rgba(11,16,32,.75);
+      font-size: 13px;
+      width: fit-content;
+    }
+
+    .dot{
+      width:8px; height:8px; border-radius:99px;
+      background: var(--accent3);
+      box-shadow: 0 0 0 6px rgba(34,197,94,.10);
+    }
+
+    h1{
+      margin: 16px 0 10px;
+      font-size: clamp(34px, 4.2vw, 56px);
+      letter-spacing: -0.9px;
+      line-height: 1.08;
+    }
+
+    .grad{
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .subtitle{
+      margin: 0 0 18px;
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 62ch;
+    }
+
+    .cta-row{
+      display:flex;
+      gap: 12px;
+      flex-wrap:wrap;
+      margin-top: 18px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.75);
+      color: var(--text);
+      text-decoration:none;
+      font-weight:800;
+      font-size: 14px;
+      box-shadow: 0 12px 24px rgba(20,30,60,.06);
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+      will-change: transform;
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      border-color: rgba(91,124,250,.35);
+      box-shadow: 0 16px 34px rgba(20,30,60,.10);
+    }
+    .btn:active{ transform: translateY(0px) scale(.98); }
+
+    .btn-primary{
+      border-color: rgba(91,124,250,.35);
+      background: linear-gradient(135deg, rgba(91,124,250,.14), rgba(139,92,246,.14));
+    }
+
+    .icon{
+      width:18px; height:18px; display:inline-block;
+    }
+
+    /* Side hero card */
+    .hero-card{
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.72);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      inset:-40px;
+      background: radial-gradient(circle at 20% 20%, rgba(91,124,250,.18), transparent 45%),
+                  radial-gradient(circle at 80% 30%, rgba(139,92,246,.14), transparent 50%),
+                  radial-gradient(circle at 50% 80%, rgba(91,124,250,.10), transparent 55%);
+      filter: blur(0px);
+      opacity:.9;
+      pointer-events:none;
+    }
+
+    .hero-card-inner{
+      position:relative;
+      z-index:1;
+    }
+
+    .mini-title{
+      display:flex; align-items:center; gap:10px;
+      font-weight:900;
+      margin-bottom: 10px;
+      letter-spacing: .2px;
+    }
+
+    .mini-title small{
+      font-weight:800;
+      color: rgba(11,16,32,.60);
+    }
+
+    .stat{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(120,120,140,.12);
+      background: rgba(255,255,255,.65);
+      margin-top: 10px;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+    .stat:hover{
+      transform: translateY(-2px);
+      border-color: rgba(139,92,246,.28);
+    }
+    .stat p{
+      margin:0;
+      color: rgba(11,16,32,.72);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    .stat b{
+      display:block;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    /* Section headers */
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .section-head h2{
+      margin:0;
+      font-size: 22px;
+      letter-spacing: -.3px;
+    }
+    .section-head p{
+      margin:0;
+      color: var(--muted);
+      max-width: 58ch;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* Cards */
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 18px;
+    }
+    @media (max-width: 980px){
+      .cards{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--card);
+      box-shadow: 0 12px 30px rgba(20,30,60,.06);
+      padding: 18px;
+      position:relative;
+      overflow:hidden;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      will-change: transform;
+    }
+
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:-60px;
+      background: radial-gradient(circle at 15% 20%, rgba(91,124,250,.14), transparent 50%),
+                  radial-gradient(circle at 85% 30%, rgba(139,92,246,.12), transparent 55%);
+      opacity:0;
+      transition: opacity .18s ease;
+      pointer-events:none;
+    }
+
+    .card:hover{
+      transform: translateY(-4px);
+      border-color: rgba(91,124,250,.30);
+      box-shadow: 0 18px 44px rgba(20,30,60,.10);
+    }
+    .card:hover::after{ opacity:1; }
+
+    .card-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      position:relative;
+      z-index:1;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(120,120,140,.14);
+      background: rgba(255,255,255,.7);
+      font-weight:800;
+      font-size:12px;
+      color: rgba(11,16,32,.70);
+      white-space:nowrap;
+    }
+
+    .card h3{
+      margin: 10px 0 8px;
+      font-size: 18px;
+      letter-spacing: -.2px;
+      position:relative;
+      z-index:1;
+    }
+
+    .card p{
+      margin:0 0 12px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+      position:relative;
+      z-index:1;
+    }
+
+    .tech{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      position:relative;
+      z-index:1;
+    }
+
+    .chip{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(120,120,140,.12);
+      background: rgba(255,255,255,.65);
+      font-weight:800;
+      font-size:12px;
+      color: rgba(11,16,32,.72);
+    }
+
+    /* Skills grid */
+    .skills{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+    @media (max-width: 980px){
+      .skills{ grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px){
+      .skills{ grid-template-columns: 1fr; }
+    }
+
+    .skill-card{
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.72);
+      padding: 16px;
+      box-shadow: 0 12px 28px rgba(20,30,60,.06);
+      transition: transform .18s ease, border-color .18s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .skill-card:hover{
+      transform: translateY(-3px);
+      border-color: rgba(139,92,246,.28);
+    }
+
+    .skill-head{
+      display:flex; align-items:center; gap:10px;
+      margin-bottom: 10px;
+      font-weight:900;
+    }
+    .skill-card ul{
+      margin:0;
+      padding-left: 18px;
+      color: rgba(11,16,32,.70);
+      line-height: 1.7;
+      font-weight:600;
+      font-size: 14px;
+    }
+
+    /* Education timeline */
+    .timeline{
+      display:grid;
+      grid-template-columns: 28px 1fr;
+      gap: 14px;
+      margin-top: 18px;
+      align-items:flex-start;
+    }
+
+    .rail{
+      position:relative;
+      width:28px;
+      display:flex;
+      justify-content:center;
+    }
+    .rail::before{
+      content:"";
+      position:absolute;
+      top: 4px;
+      bottom: 4px;
+      width:2px;
+      background: linear-gradient(var(--accent1), var(--accent2));
+      opacity:.35;
+      border-radius: 999px;
+    }
+    .node{
+      width:14px; height:14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      box-shadow: 0 0 0 6px rgba(91,124,250,.10);
+      margin-top: 4px;
+    }
+
+    .edu-card{
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.72);
+      box-shadow: 0 12px 30px rgba(20,30,60,.06);
+      padding: 18px;
+    }
+    .edu-card h3{ margin:0 0 6px; }
+    .edu-card p{ margin:0; color: var(--muted); line-height: 1.6; }
+
+    /* Contact */
+    .contact{
+      display:flex;
+      gap: 12px;
+      flex-wrap:wrap;
+      margin-top: 18px;
+    }
+    .contact a{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.72);
+      text-decoration:none;
+      color: var(--text);
+      font-weight:900;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+      box-shadow: 0 12px 26px rgba(20,30,60,.06);
+    }
+    .contact a:hover{
+      transform: translateY(-2px);
+      border-color: rgba(91,124,250,.35);
+      box-shadow: 0 18px 36px rgba(20,30,60,.10);
+    }
+
+    footer{
+      padding: 26px 0 44px;
+      color: rgba(11,16,32,.55);
+      font-weight:700;
+      font-size: 13px;
+    }
+
+    /* Reveal animations (lightweight) */
+    .reveal{
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.in{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1{ transition-delay: .08s; }
+    .delay-2{ transition-delay: .16s; }
+    .delay-3{ transition-delay: .24s; }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce){
+      .ai-pattern{ animation:none; }
+      .reveal, .btn, .card, .skill-card, .contact a, .stat{ transition:none !important; }
+      .reveal{ opacity: 1; transform:none; }
+    }
+  </style>
 </head>
 
 <body>
-  <!-- Top glow + subtle grid -->
-  <div class="bg">
-    <div class="bg__glow bg__glow--1"></div>
-    <div class="bg__glow bg__glow--2"></div>
+  <div class="page">
+    <div class="ai-pattern" aria-hidden="true"></div>
 
-    <!-- Subtle animated AI pattern (SVG neural nodes + lines) -->
-    <svg class="bg__pattern" viewBox="0 0 1200 800" aria-hidden="true">
-      <defs>
-        <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="var(--accent)" stop-opacity="0.18"/>
-          <stop offset="1" stop-color="var(--accent2)" stop-opacity="0.18"/>
-        </linearGradient>
-
-        <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="6" result="blur"/>
-          <feColorMatrix in="blur" type="matrix"
-            values="1 0 0 0 0
-                    0 1 0 0 0
-                    0 0 1 0 0
-                    0 0 0 0.35 0" result="glow"/>
-          <feMerge>
-            <feMergeNode in="glow"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
-
-        <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-          <path d="M 48 0 L 0 0 0 48" fill="none" stroke="rgba(120,140,255,0.12)" stroke-width="1"/>
-        </pattern>
-      </defs>
-
-      <rect width="1200" height="800" fill="url(#grid)"/>
-
-      <!-- Animated data-flow lines -->
-      <g class="flow" stroke="url(#g)" stroke-width="1.5" fill="none" opacity="0.7">
-        <path d="M120 220 C 280 120, 380 320, 520 220 S 860 260, 1040 180" />
-        <path d="M160 520 C 320 420, 420 640, 600 520 S 880 560, 1080 460" />
-        <path d="M80 360 C 260 280, 360 460, 520 360 S 840 420, 1120 320" />
-      </g>
-
-      <!-- Neural nodes -->
-      <g filter="url(#softGlow)" fill="white" stroke="url(#g)" stroke-width="2" opacity="0.9">
-        <!-- Row 1 -->
-        <circle class="node" cx="180" cy="180" r="6"/>
-        <circle class="node" cx="360" cy="140" r="6"/>
-        <circle class="node" cx="540" cy="200" r="6"/>
-        <circle class="node" cx="760" cy="160" r="6"/>
-        <circle class="node" cx="980" cy="130" r="6"/>
-
-        <!-- Row 2 -->
-        <circle class="node" cx="140" cy="360" r="6"/>
-        <circle class="node" cx="340" cy="320" r="6"/>
-        <circle class="node" cx="520" cy="380" r="6"/>
-        <circle class="node" cx="740" cy="340" r="6"/>
-        <circle class="node" cx="1020" cy="300" r="6"/>
-
-        <!-- Row 3 -->
-        <circle class="node" cx="200" cy="560" r="6"/>
-        <circle class="node" cx="420" cy="520" r="6"/>
-        <circle class="node" cx="620" cy="580" r="6"/>
-        <circle class="node" cx="840" cy="540" r="6"/>
-        <circle class="node" cx="1040" cy="520" r="6"/>
-      </g>
-
-      <!-- Connection lines -->
-      <g stroke="url(#g)" stroke-width="1.3" fill="none" opacity="0.55">
-        <path d="M180 180 L360 140 L540 200 L760 160 L980 130" />
-        <path d="M140 360 L340 320 L520 380 L740 340 L1020 300" />
-        <path d="M200 560 L420 520 L620 580 L840 540 L1040 520" />
-
-        <path d="M180 180 L340 320 L540 200 L740 340 L980 130" />
-        <path d="M140 360 L420 520 L520 380 L840 540 L1020 300" />
-      </g>
-    </svg>
-  </div>
-
-  <header class="nav">
-    <div class="container nav__inner">
-      <a class="brand" href="#top" aria-label="Home">
-        <span class="brand__dot"></span>
-        <span class="brand__text">Abdelrahman</span>
-      </a>
-
-      <nav class="nav__links">
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#education">Education</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <button class="nav__menu" id="menuBtn" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-
-    <div class="nav__mobile" id="mobileNav" aria-hidden="true">
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#education">Education</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </header>
-
-  <main id="top">
-    <!-- HERO -->
-    <section class="section hero">
-      <div class="container hero__grid">
-        <div class="hero__content reveal reveal--hero">
-          <div class="pill">
-            <!-- AI chip icon (inline SVG line icon) -->
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              <rect x="7" y="7" width="10" height="10" rx="2.2" stroke="currentColor" stroke-width="1.8"/>
-              <path d="M10 10h4v4h-4z" stroke="currentColor" stroke-width="1.8"/>
-            </svg>
-            <span>AI / Machine Learning Engineer</span>
-          </div>
-
-          <h1 class="hero__title">
-            Abdelrahman <span class="gradient">Abushamaleh</span>
-          </h1>
-
-          <p class="hero__subtitle">
-            Computer Engineering graduate specializing in <b>Machine Learning</b>, <b>Computer Vision</b>,
-            and intelligent <b>data-driven systems</b>.
-          </p>
-
-          <div class="hero__cta">
-            <a class="btn btn--primary" href="#projects">
-              <span>View Projects</span>
-              <span class="btn__icon" aria-hidden="true">→</span>
-            </a>
-
-            <a class="btn btn--ghost" href="https://github.com/" target="_blank" rel="noreferrer">
-              <!-- GitHub icon -->
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M9 19c-4 1.5-4-2.5-5-3m10 6v-3.6c0-1 .2-1.6-.5-2.3 2.3-.3 4.7-1.1 4.7-5A3.9 3.9 0 0 0 17.8 8a3.6 3.6 0 0 0-.1-2.7s-.8-.3-2.7 1a9.4 9.4 0 0 0-5 0c-1.9-1.3-2.7-1-2.7-1A3.6 3.6 0 0 0 7.3 8a3.9 3.9 0 0 0-1 2.7c0 3.9 2.4 4.7 4.7 5-.5.4-.6 1-.6 2V22" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+    <header>
+      <div class="container">
+        <div class="nav">
+          <a class="brand" href="#top" aria-label="Go to top">
+            <span class="brand-badge" aria-hidden="true">
+              <!-- minimal AI chip icon -->
+              <svg class="icon" viewBox="0 0 24 24" fill="none">
+                <path d="M9 3v2m6-2v2M9 19v2m6-2v2M3 9h2m-2 6h2m14-6h2m-2 6h2" stroke="rgba(11,16,32,.75)" stroke-width="1.6" stroke-linecap="round"/>
+                <rect x="7" y="7" width="10" height="10" rx="2.2" stroke="rgba(91,124,250,.95)" stroke-width="1.6"/>
+                <path d="M10 12h4M12 10v4" stroke="rgba(139,92,246,.95)" stroke-width="1.6" stroke-linecap="round"/>
               </svg>
-              <span>GitHub</span>
-            </a>
+            </span>
+            Abdelrahman <span style="color:rgba(11,16,32,.55);font-weight:800;">/ AI·ML</span>
+          </a>
 
-            <a class="btn btn--ghost" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
-              <!-- LinkedIn icon -->
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M6.5 9.5V19M6.5 6.5h0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-                <path d="M10.5 19v-5.2c0-2.1 1.2-3.3 3-3.3s3 1.2 3 3.3V19" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M10.5 10.2V19" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-                <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.7"/>
-              </svg>
-              <span>LinkedIn</span>
-            </a>
-          </div>
-
-          <div class="hero__stats">
-            <div class="stat">
-              <div class="stat__num">ML</div>
-              <div class="stat__label">Deep Learning & Classical ML</div>
-            </div>
-            <div class="stat">
-              <div class="stat__num">CV</div>
-              <div class="stat__label">Segmentation & Detection</div>
-            </div>
-            <div class="stat">
-              <div class="stat__num">Data</div>
-              <div class="stat__label">Analysis & Visualization</div>
-            </div>
-          </div>
+          <nav class="nav-right" aria-label="Primary">
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#education">Education</a>
+            <a href="#contact">Contact</a>
+          </nav>
         </div>
+      </div>
+    </header>
 
-        <div class="hero__card reveal reveal--hero">
-          <div class="glass">
-            <div class="glass__top">
-              <div class="glass__title">
-                <span class="dot dot--green"></span>
-                <span class="dot dot--yellow"></span>
-                <span class="dot dot--red"></span>
-                <span class="glass__label">Neural Stack</span>
+    <main id="top">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="container">
+          <div class="hero-wrap">
+            <div>
+              <div class="kicker reveal in">
+                <span class="dot" aria-hidden="true"></span>
+                Futuristic • Clean • Recruiter-ready
               </div>
-              <div class="badge">Futuristic • Minimal</div>
-            </div>
 
-            <div class="codebox" aria-label="Decorative code snippet">
-<pre><code><span class="cmt"># AI Engineer toolkit</span>
-<span class="kw">skills</span> = {
-  <span class="str">"ml"</span>: [<span class="str">"PyTorch"</span>, <span class="str">"TensorFlow"</span>, <span class="str">"Scikit-learn"</span>],
-  <span class="str">"cv"</span>: [<span class="str">"OpenCV"</span>, <span class="str">"CNNs"</span>, <span class="str">"Segmentation"</span>],
-  <span class="str">"data"</span>: [<span class="str">"Pandas"</span>, <span class="str">"NumPy"</span>, <span class="str">"Matplotlib"</span>]
-}
+              <h1 class="reveal in delay-1">
+                Abdelrahman <span class="grad">Abushamaleh</span>
+              </h1>
 
-<span class="kw">def</span> <span class="fn">build</span>(problem):
-  <span class="kw">return</span> <span class="fn">model</span>(data(problem)).<span class="fn">optimize</span>()
-</code></pre>
-            </div>
+              <p class="subtitle reveal in delay-2">
+                <b>AI / Machine Learning Engineer</b><br/>
+                Computer Engineering graduate specializing in Machine Learning, Computer Vision,
+                and intelligent data-driven systems.
+              </p>
 
-            <div class="glass__bottom">
-              <div class="signal">
-                <span class="signal__bar"></span>
-                <span class="signal__bar"></span>
-                <span class="signal__bar"></span>
-                <span class="signal__bar"></span>
+              <div class="cta-row reveal in delay-3">
+                <a class="btn btn-primary" href="#projects">
+                  <!-- nodes icon -->
+                  <svg class="icon" viewBox="0 0 24 24" fill="none">
+                    <circle cx="6" cy="8" r="2.2" stroke="rgba(11,16,32,.75)" stroke-width="1.6"/>
+                    <circle cx="18" cy="6" r="2.2" stroke="rgba(11,16,32,.75)" stroke-width="1.6"/>
+                    <circle cx="18" cy="16" r="2.2" stroke="rgba(11,16,32,.75)" stroke-width="1.6"/>
+                    <path d="M8 8l8-2M8 9.5l8 5M18 8.2v5.5" stroke="rgba(91,124,250,.95)" stroke-width="1.6" stroke-linecap="round"/>
+                  </svg>
+                  View Projects
+                </a>
+
+                <a class="btn" href="#" target="_blank" rel="noopener">
+                  <!-- github icon -->
+                  <svg class="icon" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2.5a9.5 9.5 0 00-3 18.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.2-1.5-1.2-1.5-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1 1.6-.8 1.8-1.2.1-.7.4-1.2.7-1.5-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1.1-2.7-.1-.3-.5-1.3.1-2.7 0 0 .9-.3 2.8 1.1a9.4 9.4 0 015.2 0c1.9-1.4 2.8-1.1 2.8-1.1.6 1.4.2 2.4.1 2.7.7.7 1.1 1.6 1.1 2.7 0 3.9-2.4 4.8-4.7 5 .4.3.7 1 .7 1.9v2.8c0 .3.2.6.7.5A9.5 9.5 0 0012 2.5z"
+                          stroke="rgba(11,16,32,.75)" stroke-width="1.2" />
+                  </svg>
+                  GitHub
+                </a>
+
+                <a class="btn" href="#" target="_blank" rel="noopener">
+                  <!-- linkedin icon -->
+                  <svg class="icon" viewBox="0 0 24 24" fill="none">
+                    <path d="M6.5 9.5v10M6.5 6.8a1.6 1.6 0 110-3.2 1.6 1.6 0 010 3.2zM10.5 19.5v-6.2c0-2 1.2-3.3 3.1-3.3 1.7 0 2.9 1 2.9 3.4v6.1"
+                          stroke="rgba(11,16,32,.75)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  LinkedIn
+                </a>
               </div>
-              <div class="muted">Fast • Clean • GitHub Pages ready</div>
             </div>
+
+            <!-- right side mini panel -->
+            <aside class="hero-card reveal" data-reveal>
+              <div class="hero-card-inner">
+                <div class="mini-title">
+                  <!-- brain icon -->
+                  <svg class="icon" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 20c-2 0-3.5-1.5-3.5-3.5V9.8C5.5 7 7.6 5 10.2 5c.6-1.2 1.8-2 3.3-2 2 0 3.6 1.6 3.6 3.6v.1c1.2.7 2 2 2 3.4v3.3c0 2-1.6 3.6-3.6 3.6H9z"
+                          stroke="rgba(11,16,32,.75)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9 8.5c.7-.8 2.1-.8 2.8 0M9 12c.7-.8 2.1-.8 2.8 0M12.9 8.5c.7-.8 2.1-.8 2.8 0M12.9 12c.7-.8 2.1-.8 2.8 0"
+                          stroke="rgba(91,124,250,.9)" stroke-width="1.3" stroke-linecap="round"/>
+                  </svg>
+                  Focus <small>AI • CV • Data</small>
+                </div>
+
+                <div class="stat">
+                  <!-- data flow icon -->
+                  <svg class="icon" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 7h9a3 3 0 010 6H7a3 3 0 000 6h13" stroke="rgba(139,92,246,.95)" stroke-width="1.6" stroke-linecap="round"/>
+                    <path d="M20 19l-2-2m2 2l-2 2" stroke="rgba(11,16,32,.65)" stroke-width="1.6" stroke-linecap="round"/>
+                  </svg>
+                  <div>
+                    <b>What I build</b>
+                    <p>Models that turn complex signals (images, audio, behavior) into reliable decisions.</p>
+                  </div>
+                </div>
+
+                <div class="stat">
+                  <!-- graph icon -->
+                  <svg class="icon" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 19V5" stroke="rgba(11,16,32,.65)" stroke-width="1.6" stroke-linecap="round"/>
+                    <path d="M4 19h16" stroke="rgba(11,16,32,.65)" stroke-width="1.6" stroke-linecap="round"/>
+                    <path d="M7 14l3-3 3 2 5-6" stroke="rgba(91,124,250,.95)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="7" cy="14" r="1.2" fill="rgba(139,92,246,.85)"/>
+                    <circle cx="10" cy="11" r="1.2" fill="rgba(139,92,246,.85)"/>
+                    <circle cx="13" cy="13" r="1.2" fill="rgba(139,92,246,.85)"/>
+                    <circle cx="18" cy="7" r="1.2" fill="rgba(139,92,246,.85)"/>
+                  </svg>
+                  <div>
+                    <b>My approach</b>
+                    <p>Clean pipelines, measurable metrics, and production-minded ML engineering.</p>
+                  </div>
+                </div>
+              </div>
+            </aside>
+
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- PROJECTS -->
-    <section class="section" id="projects">
-      <div class="container">
-        <div class="section__head reveal">
-          <h2>Projects</h2>
-          <p class="muted">
-            A selection of AI/ML work focused on real-world perception, audio intelligence, and personalization.
-          </p>
+      <!-- PROJECTS -->
+      <section id="projects">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2 class="reveal" data-reveal>Projects</h2>
+              <p class="reveal delay-1" data-reveal>
+                Selected work in Computer Vision, Deep Learning, and Recommendation — presented as clean, animated cards.
+              </p>
+            </div>
+          </div>
+
+          <div class="cards">
+            <article class="card reveal" data-reveal>
+              <div class="card-top">
+                <span class="badge">
+                  <!-- cv icon -->
+                  <svg class="icon" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 7h16v10H4z" stroke="rgba(11,16,32,.65)" stroke-width="1.6" stroke-linejoin="round"/>
+                    <path d="M8 11h8M8 14h6" stroke="rgba(91,124,250,.95)" stroke-width="1.6" stroke-linecap="round"/>
+                  </svg>
+                  Computer Vision
+                </span>
+              </div>
+
+              <h3>Urban Street Defect Detection</h3>
+              <p>Semantic segmentation using CNN-based deep learning models to detect and localize road defects in street imagery.</p>
+
+              <div class="tech">
+                <span class="chip">Python</span>
+                <span class="chip">PyTorch</span>
+                <span class="chip">Computer Vision</span>
+                <span class="chip">Segmentation</span>
+              </div>
+            </article>
+
+            <article class="card reveal delay-1" data-reveal>
+              <div class="card-top">
+                <span class="badge">
+                  <!-- audio icon -->
+                  <svg class="icon" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 10v4m3-6v8m3-10v12m4-10v8m3-6v4"
+                          stroke="rgba(139,92,246,.95)" stroke-width="1.6" stroke-linecap="round"/>
+                    <path d="M19 7a3 3 0 013 3v4a3 3 0 01-3 3"
+                          stroke="rgba(11,16,32,.65)" stroke-width="1.6" stroke-linecap="round"/>
+                  </svg>
+                  Audio ML
+                </span>
+              </div>
+
+              <h3>Speaker Recognition System</h3>
+              <p>CNN-based speaker identification using MFCC audio features for robust recognition across varying voice samples.</p>
+
+              <div class="tech">
+                <span class="chip">Python</span>
+                <span class="chip">Librosa</span>
+                <span class="chip">Deep Learning</span>
+                <span class="chip">MFCC</span>
+              </div>
+            </article>
+
+            <article class="card reveal delay-2" data-reveal>
+              <div class="card-top">
+                <span class="badge">
+                  <!-- recommender icon -->
+                  <svg class="icon" viewBox="0 0 24 24" fill="none">
+                    <path d="M6 6h12v12H6z" stroke="rgba(11,16,32,.65)" stroke-width="1.6" stroke-linejoin="round"/>
+                    <path d="M8.5 12l2 2 5-5" stroke="rgba(91,124,250,.95)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Personalization
+                </span>
+              </div>
+
+              <h3>Recommender System</h3>
+              <p>Collaborative filtering and ML models to deliver personalized recommendations with practical evaluation metrics.</p>
+
+              <div class="tech">
+                <span class="chip">Python</span>
+                <span class="chip">Pandas</span>
+                <span class="chip">Scikit-learn</span>
+                <span class="chip">Recommenders</span>
+              </div>
+            </article>
+          </div>
         </div>
+      </section>
 
-        <div class="grid grid--3">
-          <!-- Project 1 -->
-          <article class="card reveal">
-            <div class="card__icon">
-              <!-- Neural nodes icon -->
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle cx="6" cy="7" r="2.2" stroke="currentColor" stroke-width="1.7"/>
-                <circle cx="18" cy="6" r="2.2" stroke="currentColor" stroke-width="1.7"/>
-                <circle cx="12" cy="18" r="2.2" stroke="currentColor" stroke-width="1.7"/>
-                <path d="M7.8 8.2 10.4 15.6M16.3 7.2 13.2 15.6M8.2 7h7.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-              </svg>
+      <!-- SKILLS -->
+      <section id="skills">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2 class="reveal" data-reveal>Skills</h2>
+              <p class="reveal delay-1" data-reveal>
+                A clean, tech-grid layout with AI-themed icons and subtle hover micro-interactions.
+              </p>
             </div>
-            <h3>Urban Street Defect Detection</h3>
-            <p>Semantic segmentation using CNN-based deep learning models.</p>
+          </div>
 
-            <div class="tags">
-              <span>Python</span><span>PyTorch</span><span>Computer Vision</span>
-            </div>
-
-            <div class="card__actions">
-              <a class="link" href="#" aria-label="Open project details">
-                Details <span aria-hidden="true">→</span>
-              </a>
-            </div>
-          </article>
-
-          <!-- Project 2 -->
-          <article class="card reveal">
-            <div class="card__icon">
-              <!-- Audio wave / brain-ish icon -->
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M4 12h2l1.2-3.5L9 16l1.6-5 1.6 4.5 1.2-3 1.2 2H20" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M6 6c3-3 9-3 12 0M6 18c3 3 9 3 12 0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3>Speaker Recognition System</h3>
-            <p>CNN-based speaker identification using MFCC audio features.</p>
-
-            <div class="tags">
-              <span>Python</span><span>Librosa</span><span>Deep Learning</span>
-            </div>
-
-            <div class="card__actions">
-              <a class="link" href="#" aria-label="Open project details">
-                Details <span aria-hidden="true">→</span>
-              </a>
-            </div>
-          </article>
-
-          <!-- Project 3 -->
-          <article class="card reveal">
-            <div class="card__icon">
-              <!-- Graph icon -->
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M4 19V5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-                <path d="M4 19h16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-                <path d="M7 15l3-4 3 2 4-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="7" cy="15" r="1.2" fill="currentColor"/>
-                <circle cx="10" cy="11" r="1.2" fill="currentColor"/>
-                <circle cx="13" cy="13" r="1.2" fill="currentColor"/>
-                <circle cx="17" cy="7" r="1.2" fill="currentColor"/>
-              </svg>
-            </div>
-            <h3>Recommender System</h3>
-            <p>Collaborative filtering and ML models for personalized recommendations.</p>
-
-            <div class="tags">
-              <span>Python</span><span>Pandas</span><span>Scikit-learn</span>
-            </div>
-
-            <div class="card__actions">
-              <a class="link" href="#" aria-label="Open project details">
-                Details <span aria-hidden="true">→</span>
-              </a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- SKILLS -->
-    <section class="section" id="skills">
-      <div class="container">
-        <div class="section__head reveal">
-          <h2>Skills</h2>
-          <p class="muted">A focused toolkit for building and shipping ML systems.</p>
-        </div>
-
-        <div class="grid grid--2">
-          <div class="skillcard reveal">
-            <div class="skillcard__head">
-              <span class="skillcard__icon" aria-hidden="true">
-                <!-- Code icon -->
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M9 18 3 12l6-6M15 6l6 6-6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          <div class="skills">
+            <div class="skill-card reveal" data-reveal>
+              <div class="skill-head">
+                <!-- code icon -->
+                <svg class="icon" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 18l-6-6 6-6M15 6l6 6-6 6" stroke="rgba(91,124,250,.95)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-              </span>
-              <h3>Programming</h3>
+                Programming
+              </div>
+              <ul>
+                <li>Python</li>
+                <li>SQL</li>
+              </ul>
             </div>
-            <ul class="bullets">
-              <li>Python</li>
-              <li>SQL</li>
-            </ul>
-          </div>
 
-          <div class="skillcard reveal">
-            <div class="skillcard__head">
-              <span class="skillcard__icon" aria-hidden="true">
-                <!-- Chip icon -->
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-                  <rect x="7" y="7" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.7"/>
+            <div class="skill-card reveal delay-1" data-reveal>
+              <div class="skill-head">
+                <!-- model icon -->
+                <svg class="icon" viewBox="0 0 24 24" fill="none">
+                  <circle cx="7" cy="8" r="2" stroke="rgba(11,16,32,.65)" stroke-width="1.6"/>
+                  <circle cx="17" cy="8" r="2" stroke="rgba(11,16,32,.65)" stroke-width="1.6"/>
+                  <circle cx="12" cy="16" r="2" stroke="rgba(11,16,32,.65)" stroke-width="1.6"/>
+                  <path d="M9 9.2l2.2 5M15 9.2l-2.2 5M9.2 8h5.6" stroke="rgba(139,92,246,.95)" stroke-width="1.6" stroke-linecap="round"/>
                 </svg>
-              </span>
-              <h3>Machine Learning</h3>
+                Machine Learning
+              </div>
+              <ul>
+                <li>Scikit-learn</li>
+                <li>PyTorch</li>
+                <li>TensorFlow</li>
+              </ul>
             </div>
-            <ul class="bullets">
-              <li>Scikit-learn</li>
-              <li>PyTorch</li>
-              <li>TensorFlow</li>
-            </ul>
-          </div>
 
-          <div class="skillcard reveal">
-            <div class="skillcard__head">
-              <span class="skillcard__icon" aria-hidden="true">
-                <!-- Vision icon -->
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
-                  <circle cx="12" cy="12" r="2.6" stroke="currentColor" stroke-width="1.7"/>
+            <div class="skill-card reveal delay-2" data-reveal>
+              <div class="skill-head">
+                <!-- camera/vision icon -->
+                <svg class="icon" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 8h16v10H4z" stroke="rgba(11,16,32,.65)" stroke-width="1.6" stroke-linejoin="round"/>
+                  <path d="M9 8l1.2-2h3.6L15 8" stroke="rgba(11,16,32,.65)" stroke-width="1.6" stroke-linejoin="round"/>
+                  <circle cx="12" cy="13" r="2.8" stroke="rgba(91,124,250,.95)" stroke-width="1.6"/>
                 </svg>
-              </span>
-              <h3>Computer Vision</h3>
+                Computer Vision
+              </div>
+              <ul>
+                <li>OpenCV</li>
+                <li>CNNs</li>
+                <li>Image Segmentation</li>
+              </ul>
             </div>
-            <ul class="bullets">
-              <li>OpenCV</li>
-              <li>CNNs</li>
-              <li>Image Segmentation</li>
-            </ul>
-          </div>
 
-          <div class="skillcard reveal">
-            <div class="skillcard__head">
-              <span class="skillcard__icon" aria-hidden="true">
-                <!-- Data icon -->
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M6 6h12M6 12h12M6 18h12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-                  <path d="M4 6h0M4 12h0M4 18h0" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
+            <div class="skill-card reveal delay-3" data-reveal>
+              <div class="skill-head">
+                <!-- data icon -->
+                <svg class="icon" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 7c0-1.7 2.7-3 6-3s6 1.3 6 3-2.7 3-6 3-6-1.3-6-3z" stroke="rgba(11,16,32,.65)" stroke-width="1.6"/>
+                  <path d="M6 7v5c0 1.7 2.7 3 6 3s6-1.3 6-3V7" stroke="rgba(11,16,32,.65)" stroke-width="1.6"/>
+                  <path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5" stroke="rgba(139,92,246,.95)" stroke-width="1.6"/>
                 </svg>
-              </span>
-              <h3>Data</h3>
+                Data
+              </div>
+              <ul>
+                <li>Pandas</li>
+                <li>NumPy</li>
+                <li>Matplotlib</li>
+              </ul>
             </div>
-            <ul class="bullets">
-              <li>Pandas</li>
-              <li>NumPy</li>
-              <li>Matplotlib</li>
-            </ul>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- EDUCATION -->
-    <section class="section" id="education">
-      <div class="container">
-        <div class="section__head reveal">
-          <h2>Education</h2>
-          <p class="muted">A simple timeline of academic foundation.</p>
-        </div>
+      <!-- EDUCATION -->
+      <section id="education">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2 class="reveal" data-reveal>Education</h2>
+              <p class="reveal delay-1" data-reveal>
+                A simple, clean timeline with a subtle gradient rail—minimal and professional.
+              </p>
+            </div>
+          </div>
 
-        <div class="timeline reveal">
-          <div class="timeline__line"></div>
+          <div class="timeline">
+            <div class="rail" aria-hidden="true">
+              <div class="node"></div>
+            </div>
 
-          <div class="timeline__item">
-            <div class="timeline__dot" aria-hidden="true"></div>
-            <div class="timeline__content">
+            <div class="edu-card reveal" data-reveal>
               <h3>B.Sc. in Computer Engineering</h3>
-              <p class="muted">Üsküdar University</p>
+              <p>Üsküdar University</p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- CONTACT -->
-    <section class="section" id="contact">
-      <div class="container">
-        <div class="section__head reveal">
-          <h2>Contact</h2>
-          <p class="muted">Let’s connect — open to AI/ML roles, research collaborations, and startup opportunities.</p>
-        </div>
+      <!-- CONTACT -->
+      <section id="contact">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2 class="reveal" data-reveal>Contact & Links</h2>
+              <p class="reveal delay-1" data-reveal>
+                Quick access for recruiters and teams — subtle hover glow and underline-style motion.
+              </p>
+            </div>
+          </div>
 
-        <div class="contact reveal">
-          <a class="contact__item" href="https://github.com/" target="_blank" rel="noreferrer">
-            <span class="contact__icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M9 19c-4 1.5-4-2.5-5-3m10 6v-3.6c0-1 .2-1.6-.5-2.3 2.3-.3 4.7-1.1 4.7-5A3.9 3.9 0 0 0 17.8 8a3.6 3.6 0 0 0-.1-2.7s-.8-.3-2.7 1a9.4 9.4 0 0 0-5 0c-1.9-1.3-2.7-1-2.7-1A3.6 3.6 0 0 0 7.3 8a3.9 3.9 0 0 0-1 2.7c0 3.9 2.4 4.7 4.7 5-.5.4-.6 1-.6 2V22" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          <div class="contact">
+            <a class="reveal" data-reveal href="#" target="_blank" rel="noopener">
+              <svg class="icon" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2.5a9.5 9.5 0 00-3 18.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.2-1.5-1.2-1.5-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1 1.6-.8 1.8-1.2.1-.7.4-1.2.7-1.5-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1.1-2.7-.1-.3-.5-1.3.1-2.7 0 0 .9-.3 2.8 1.1a9.4 9.4 0 015.2 0c1.9-1.4 2.8-1.1 2.8-1.1.6 1.4.2 2.4.1 2.7.7.7 1.1 1.6 1.1 2.7 0 3.9-2.4 4.8-4.7 5 .4.3.7 1 .7 1.9v2.8c0 .3.2.6.7.5A9.5 9.5 0 0012 2.5z"
+                      stroke="rgba(11,16,32,.75)" stroke-width="1.2" />
               </svg>
-            </span>
-            <span>GitHub</span>
-            <span class="contact__arrow" aria-hidden="true">→</span>
-          </a>
+              GitHub
+            </a>
 
-          <a class="contact__item" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
-            <span class="contact__icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M6.5 9.5V19M6.5 6.5h0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-                <path d="M10.5 19v-5.2c0-2.1 1.2-3.3 3-3.3s3 1.2 3 3.3V19" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M10.5 10.2V19" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-                <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.7"/>
-              </svg>
-            </span>
-            <span>LinkedIn</span>
-            <span class="contact__arrow" aria-hidden="true">→</span>
-          </a>
-
-          <a class="contact__item" href="mailto:your.email@example.com">
-            <span class="contact__icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M4 6h16v12H4V6Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
-                <path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-            <span>Email</span>
-            <span class="contact__arrow" aria-hidden="true">→</span>
-          </a>
-        </div>
-
-        <footer class="footer">
-          <div class="muted">© <span id="year"></span> Abdelrahman Abushamaleh • Built for GitHub Pages</div>
-        </footer>
-      </div>
-    </section>
-  </main>
-
-  <script src="./script.js"></script>
-</body>
-</html>
+            <a class="reveal delay-1" data-reveal href="#" target="_blank" rel="noopener">
+              <svg class="icon" viewBox="0 0 24 24" fill="none">
+                <path d="M6.5 9.5v10M6.5 6.8a1.6 1.6 0 110-
