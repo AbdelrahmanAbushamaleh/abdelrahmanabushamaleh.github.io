@@ -54,14 +54,17 @@
         linear-gradient(to right, rgba(11,16,32,.06) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(11,16,32,.06) 1px, transparent 1px);
       background-size: 46px 46px;
+      background-position: 0 0;
       mask-image: radial-gradient(
         closest-side at 50% 30%,
         rgba(0,0,0,.9),
         rgba(0,0,0,.1) 65%,
         transparent 85%
       );
-      opacity:0.35;                /* 🔹 reduces tiled/repeated look */
-      animation:gridFloat 14s ease-in-out infinite;
+      opacity:0.35;
+      animation:
+        gridFloat 14s ease-in-out infinite,
+        gridDrift 80s linear infinite;
     }
 
     .nodes{
@@ -259,7 +262,22 @@
       background:#e11d48;
       color:#fff;
     }
-
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:10px;
+      border:1px solid rgba(11,16,32,.28); /* visible border */
+      background:#ffffff;
+      color:var(--text);
+      font-weight:600;
+      font-size:14px;
+      cursor:pointer;
+      box-shadow:0 6px 18px rgba(20,30,60,.08);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
     .btn:hover{
       transform: translateY(-2px);
       box-shadow: 0 14px 35px rgba(20,30,60,.12);
