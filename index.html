@@ -62,7 +62,9 @@
         transparent 85%
       );
       opacity:0.35;
-      animation: gridDrift 10s linear infinite;
+      animation:
+        gridFloat 14s ease-in-out infinite,
+        gridDrift 80s linear infinite;
     }
 
     .nodes{
@@ -99,13 +101,13 @@
 /* background grid diagonal drift */
     @keyframes gridDrift{
       from { background-position: 0 0; }
-      to   { background-position: 600px 400px; }
+      to   { background-position: 420px 240px; }
     }
 
 /* neural nodes horizontal drift */
     @keyframes nodeDrift{
       from { transform: translateX(0); }
-      to   { transform: translateX(-260px); }
+      to   { transform: translateX(-240px); }
     }
 
     .lines{
@@ -117,7 +119,7 @@
     .flow{
         stroke-dasharray: 6 12;
         animation: dash 18s linear infinite;
-        opacity:.6;
+        opacity: 0.6;
     }
     @keyframes dash{
       to { stroke-dashoffset: -220; }
@@ -564,17 +566,47 @@
     </div>
 
     <div class="nodes">
-      <div class="node"  style="left:12%; top:18%;"></div>
-      <div class="node p2" style="left:24%; top:34%;"></div>
-      <div class="node p3" style="left:36%; top:22%;"></div>
-      <div class="node p2" style="left:52%; top:30%;"></div>
-      <div class="node"  style="left:68%; top:22%;"></div>
-      <div class="node p3" style="left:82%; top:34%;"></div>
-      <div class="node p2" style="left:20%; top:64%;"></div>
-      <div class="node"  style="left:44%; top:70%;"></div>
-      <div class="node p3" style="left:62%; top:62%;"></div>
-      <div class="node"  style="left:84%; top:66%;"></div>
+      <div class="node-wrap" style="left:12%; top:18%;">
+        <div class="node"></div>
+      </div>
+
+      <div class="node-wrap" style="left:24%; top:34%;">
+        <div class="node p2"></div>
+      </div>
+
+      <div class="node-wrap" style="left:36%; top:22%;">
+        <div class="node p3"></div>
+      </div>
+
+      <div class="node-wrap" style="left:52%; top:30%;">
+        <div class="node p2"></div>
+      </div>
+
+      <div class="node-wrap" style="left:68%; top:22%;">
+        <div class="node"></div>
+      </div>
+
+      <div class="node-wrap" style="left:82%; top:34%;">
+        <div class="node p3"></div>
+      </div>
+
+      <div class="node-wrap" style="left:20%; top:64%;">
+        <div class="node p2"></div>
+      </div>
+
+      <div class="node-wrap" style="left:44%; top:70%;">
+        <div class="node"></div>
+      </div>
+
+      <div class="node-wrap" style="left:62%; top:62%;">
+        <div class="node p3"></div>
+      </div>
+
+      <div class="node-wrap" style="left:84%; top:66%;">
+        <div class="node"></div>
+      </div>
     </div>
+
   </div>
 
   <!-- Navbar -->
