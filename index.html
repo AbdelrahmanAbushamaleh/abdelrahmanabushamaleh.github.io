@@ -419,6 +419,12 @@
       border:1px solid rgba(120,120,140,.14);
       background:#fff;
     }
+    /* for non-segmentation images */
+    .project-img.cover{
+      height:150px;       /* slightly bigger */
+      object-fit:cover;  /* fills space better */
+      background:#f8f9ff;
+    }
 
     /* ---------- Skills ---------- */
     .skills{
@@ -783,7 +789,7 @@
               <div class="hint">CNN-based speaker identification using MFCC features.</div>
             </div>
           </div>
-          <img class="project-img"
+          <img class="project-img cover"
              src="assets/projects/speaker.png"
              alt="Speaker recognition MFCC visualization">
           <p class="pdesc">
@@ -810,7 +816,7 @@
               <div class="hint">Collaborative filtering + ML models for personalization.</div>
             </div>
           </div>
-          <img class="project-img"
+          <img class="project-img cover"
              src="assets/projects/medical.png"
              alt="Medical AI assistant architecture diagram">
           <p class="pdesc">
